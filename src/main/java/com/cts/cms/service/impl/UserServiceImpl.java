@@ -70,9 +70,16 @@ public class UserServiceImpl implements UserService {
 
         User user = new User();
         user.setName(registerDto.getName());
+        user.setDateOfBirth(registerDto.getDateOfBirth());
+        user.setAddress(registerDto.getAddress());
+        user.setContactNo(registerDto.getContactNo());
         user.setUsername(registerDto.getUsername());
         user.setEmail(registerDto.getEmail());
         user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        user.setGender(registerDto.getGender());
+        user.setNominees(registerDto.getNominees());
+        user.setInsuranceType(registerDto.getInsuranceType());
+        user.setMaxClaimAmount(registerDto.getMaxClaimAmount());
 
         Set<Role> roles = new HashSet<>();
         Role userRole;
