@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/claimrequest.css">
+
+    <title>Member Claim Request</title>
+</head>
+
+<body>
+<div class="container">
+    <h1>
+        Member Claim Request
+    </h1>
+
+    <form th:action="@{/getmemberid}" th:object="${listForm}" method="POST">
+
+        <select name="memberId">
+            <option th:each="memberId : ${list}" th:text="${memberId}" th:value="${memberId}"
+            />
+        </select>
+
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="firstName" required />
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="lastName" required />
+
+        <label for="nominee-count">Nominee Count:</label>
+        <select id="nominee-count" name="nominee-count">
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+        </select>
+
+        <!--
+        <label for="member_id">Member ID:</label>
+        <input type="number" id="member_id" name="memberId" required />
+
+        <label for="request_date">Request Date:</label>
+        <input type="date" id="request_date" name="requestDate" required />
+
+        <label for="claim_reason">Claim Reason:</label>
+        <input type="text" id="claim_reason" name="claimReason" required />
+
+        <label for="insurance_type">Insurance Type:</label>
+        <input type="text" id="insurance_type" name="insuranceType" required />
+
+        <label for="final_claim_amount">Final Claim Amount:</label>
+        <input type="number" id="final_claim_amount" name="finalClaimAmount" required />
+
+        <label for="approval_status">Approval Status:</label>
+        <input type="checkbox" id="approval_status" name="approvalStatus" required />
+
+        <label for="approval_date">Approval Date:</label>
+        <input type="date" id="approval_date" name="approvalDate" required />
+
+        <label for="reject_reason">Reject Reason:</label>
+        <input type="text" id="reject_reason" name="rejectReason" required />
+        -->
+        <input type="submit" value="SUBMIT" />
+    </form>
+</div>
+</body>
+
+</html>
