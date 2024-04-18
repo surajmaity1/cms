@@ -1,29 +1,33 @@
 package com.cts.cms.controller;
 
-import com.cts.cms.entity.InsuranceType;
-import com.cts.cms.service.InsuranceTypeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cts.cms.entity.InsuranceType;
+import com.cts.cms.repository.InsuranceTypeRepository;
+import com.cts.cms.service.InsuranceTypeService;
+
 @RestController
-@RequestMapping("/cms/admin")
+@RequestMapping("/cms/insurance")
 public class InsuranceTypeController {
 
     InsuranceTypeService insuranceTypeService;
 
-    @Autowired
     public InsuranceTypeController(InsuranceTypeService insuranceTypeService) {
         this.insuranceTypeService = insuranceTypeService;
     }
 
-    @PostMapping("/addInsurance")
-    public ResponseEntity<String> addInsurance(@RequestBody InsuranceType insuranceType) {
-        String response = insuranceTypeService.addInsurance(insuranceType);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    @GetMapping("/all")
+    public List<String> getAllInsuranceName() {
+        return insuranceTypeService.getAllInsuranceName();
+    }
+
+    @GetMapping("/{insuranceType}")
+    public Double getInsuranceAmount(@PathVariable("insuranceType") String insuranceType) {
+        return insuranceTypeService.getInsuranceAmount(insuranceType);
     }
 }

@@ -1,28 +1,26 @@
 package com.cts.cms.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.Set;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "insurancetype")
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class InsuranceType {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "insurance_id")
-    private Long insuranceId;
+    private Long id;
 
-    @Column(name = "insurance_type", nullable = false, unique = true)
+    @Column(name = "insurance_type")
     private String insuranceType;
 
-    @Column(name = "insured_amount", nullable = false)
-    private Double insuredAmount;
+    @Column(name = "insurance_amount")
+    private Double insuranceAmount;
 }

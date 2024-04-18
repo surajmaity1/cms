@@ -1,14 +1,17 @@
 package com.cts.cms.service.impl;
 
-import com.cts.cms.entity.InsuranceType;
-import com.cts.cms.exception.CmsException;
-import com.cts.cms.repository.InsuranceTypeRepository;
-import com.cts.cms.service.InsuranceTypeService;
-import org.springframework.http.HttpStatus;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
+import com.cts.cms.entity.InsuranceType;
+import com.cts.cms.repository.InsuranceTypeRepository;
+import com.cts.cms.service.InsuranceTypeService;
+
 @Service
-public class InsuranceTypeServiceImpl implements InsuranceTypeService {
+public class InsuranceTypeServiceImpl implements InsuranceTypeService{
 
     InsuranceTypeRepository insuranceTypeRepository;
 
@@ -16,18 +19,28 @@ public class InsuranceTypeServiceImpl implements InsuranceTypeService {
         this.insuranceTypeRepository = insuranceTypeRepository;
     }
 
+
     @Override
-    public String addInsurance(InsuranceType insuranceType) {
+    public List<String> getAllInsuranceName() {
+        List<InsuranceType> insuranceTypes = insuranceTypeRepository.findAll();
+        return insuranceTypes.stream()
+                .map(InsuranceType::getInsuranceType)
+                .collect(Collectors.toList());
+    }
 
-        // Check this insurance added by admin or not
 
-        // add check for same insuranceType exists in database
-        if (insuranceTypeRepository.existsByInsuranceType(insuranceType.getInsuranceType())){
-            throw new CmsException(HttpStatus.BAD_REQUEST, "This insurance is already exists");
+    @Override
+    public Double getInsuranceAmount(String insuranceType) {
+        // TODO Auto-generated method stub
+        Optional<InsuranceType> insurance = insuranceTypeRepository
+                .findByInsuranceType(insuranceType);
+
+        if(!insurance.isPresent()) {
+            return 0.0;
         }
 
-        insuranceTypeRepository.save(insuranceType);
-        return "Success: Insurance Added";
+        return insurance.get().getInsuranceAmount();
     }
+
 
 }

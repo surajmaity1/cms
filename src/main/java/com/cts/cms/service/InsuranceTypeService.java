@@ -1,7 +1,8 @@
 package com.cts.cms.service;
 
-import com.cts.cms.entity.InsuranceType;
+import java.util.List;
 
 public interface InsuranceTypeService {
-    String addInsurance(InsuranceType insuranceType);
+    List<String> getAllInsuranceName();
+    Double getInsuranceAmount(String insuranceType);
 }
