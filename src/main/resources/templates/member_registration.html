@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"xmlns:th="http://www.thymeLeaf.org">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Member Registration</title>
     <link rel="stylesheet" href="css/member_registration.css" />
+
+    <script th:inline="javascript">
+        var fetchInsuranceAmountUrl = /*[[@{/fetchInsuranceAmount}]]*/;
+        var fetchMaxClaimAmountUrl = /*[[@{/fetchMaxClaimAmountForMemberRegistration}]]*/;
+    </script>
+
+    <!-- Include external JavaScript file -->
+    <script th:src="@{/js/member_registration.js}"></script>
 </head>
 <body>
 <div class="container">
@@ -43,32 +51,34 @@
             </div>
 
             <div class="input-field">
-                <span class="details">Nominee Count</span>
-                <input type="number" placeholder="Enter nominee count" min="1" max="3" name="nomineeCount" required />
+                <span class="details" style="padding-bottom:5px;">Nominee Count</span>
+                <select id="nomineeCount" class="details" name="nomineeCount" required>
+                    <option disabled selected>Select Nominee Count</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
             </div>
 
             <div class="input-field">
                 <span class="details" style="padding-bottom:5px;">Insurance Type</span>
-                <select id="insuranceType" class="details" required>
-                    <option value="">Select Insurance Type</option>
-                    <option value="Vehicle">Vehicle Insurance</option>
-                    <option value="Home">Home Insurance</option>
-                    <option value="Life">Life Insurance</option>
+                <select class="details" name="insuranceType" id="insuranceType">
+                    <option th:each="insuranceType : ${insurances}" th:text="${insuranceType}" th:value="${insuranceType}"
+                    />
                 </select>
             </div>
 
-
             <div class="input-field">
                 <span class="details">Insured Amount</span>
-                <input type="number" name=""  />
+                <input type="text" id="insuranceAmount" name="insuranceAmount" readonly />
             </div>
 
             <div class="input-field">
                 <span class="details">Maximum Claimable Amount</span>
-                <input type="number" name="maxClaimAmount" />
+                <input type="text" id="max_claim_amount" name="maxClaimAmount" readonly/>
             </div>
         </div>
-        <div class="gender-details">
+        <!--<div class="gender-details">
             <input type="radio" name="gender" id="dot-1" />
             <input type="radio" name="gender" id="dot-2" />
             <input type="radio" name="gender" id="dot-3" />
@@ -87,7 +97,20 @@
                     <span class="gender">Other</span>
                 </label>
             </div>
+        </div>-->
+
+
+
+        <div class="gender-details">
+            <span class="details" style="padding-bottom:5px;">Gender</span>
+            <select id="gender" class="details" name="gender" required>
+                <option disabled selected>Select Gender</option>
+                <option>MALE</option>
+                <option>FEMALE</option>
+                <option>OTHERS</option>
+            </select>
         </div>
+
         <div class="button">
             <input type="submit" value="Register" />
         </div>

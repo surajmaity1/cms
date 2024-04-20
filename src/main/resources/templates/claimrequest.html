@@ -10,8 +10,18 @@
     <link rel="stylesheet" href="css/claimrequest.css">
 
     <title>Member Claim Request</title>
-</head>
+    <script th:inline="javascript">
+        var fetchFirstNameUrl = /*[[@{/fetchFirstName}]]*/;
+        var fetchLastNameUrl = /*[[@{/fetchLastName}]]*/;
+        var fetchNomineeCountUrl = /*[[@{/fetchNomineeCount}]]*/;
+        var fetchMaxClaimAmountUrl = /*[[@{/fetchMaxClaimAmount}]]*/;
+        var fetchInsuranceTypeUrl = /*[[@{/fetchInsuranceType}]]*/;
+        var fetchFinalClaimAmountUrl = /*[[@{/fetchFinalClaimAmount}]]*/;
+    </script>
 
+    <!-- Include external JavaScript file -->
+    <script th:src="@{/js/claimrequest.js}"></script>
+</head>
 <body>
 <div class="container">
     <h1>
@@ -26,21 +36,19 @@
         </select>
 
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="firstName" value="${firstName}" readonly />
+        <input type="text" id="first_name" name="firstName" readonly/>
 
         <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="lastName" value="John"disabled />
+        <input type="text" id="last_name" name="lastName" readonly/>
 
-<!--        <label for="nominee-count">Nominee Count:</label>-->
-<!--        <select id="nominee-count" name="nominee-count">-->
-<!--            <option value="1">One</option>-->
-<!--            <option value="2">Two</option>-->
-<!--            <option value="3">Three</option>-->
-<!--        </select>-->
+        <label for="nominee_count">Nominee Count:</label>
+        <input type="text" id="nominee_count" name="nominee_count" readonly/>
 
-        <!--
-        <label for="member_id">Member ID:</label>
-        <input type="number" id="member_id" name="memberId" required />
+        <label for="max_claim_amount">Maximum Claim Amount:</label>
+        <input type="text" id="max_claim_amount" name="max_claim_amount" readonly/>
+
+        <label for="insurance_type">Insurance Type:</label>
+        <input type="text" id="insurance_type" name="insuranceType" readonly />
 
         <label for="request_date">Request Date:</label>
         <input type="date" id="request_date" name="requestDate" required />
@@ -48,11 +56,9 @@
         <label for="claim_reason">Claim Reason:</label>
         <input type="text" id="claim_reason" name="claimReason" required />
 
-        <label for="insurance_type">Insurance Type:</label>
-        <input type="text" id="insurance_type" name="insuranceType" required />
-
         <label for="final_claim_amount">Final Claim Amount:</label>
-        <input type="number" id="final_claim_amount" name="finalClaimAmount" required />
+        <input type="text" id="final_claim_amount" name="finalClaimAmount" readonly />
+        <!--
 
         <label for="approval_status">Approval Status:</label>
         <input type="checkbox" id="approval_status" name="approvalStatus" required />
@@ -66,28 +72,6 @@
         <input type="submit" value="SUBMIT" />
     </form>
 </div>
-<script th:inline="javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-        var memberIdSelect = document.getElementById("memberId");
-        if (memberIdSelect) {
-            memberIdSelect.addEventListener("change", function() {
-                var selectedValue = this.value;
-                console.log(selectedValue);
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", /*[[@{/submitForm}]]*/, true);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        console.log("Value sent successfully");
-                    }
-                };
-                xhr.send("memberId=" + selectedValue);
-            });
-        } else {
-            console.error("Element with id 'memberId' not found");
-        }
-    });
-</script>
 </body>
 
 </html>

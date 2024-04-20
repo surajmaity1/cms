@@ -4,4 +4,5 @@ import com.cts.cms.dto.ClaimDto;
 
 public interface ClaimService {
     public String addClaim(ClaimDto claimDto);
+    public Long getFinalClaimAmount(Long id);
 }

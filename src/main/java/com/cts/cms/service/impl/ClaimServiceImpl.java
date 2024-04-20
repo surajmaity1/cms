@@ -8,6 +8,8 @@ import com.cts.cms.entity.Claim;
 import com.cts.cms.repository.ClaimRepository;
 import com.cts.cms.service.ClaimService;
 
+import java.util.Optional;
+
 @Service
 public class ClaimServiceImpl implements ClaimService{
     ClaimRepository claimRepository;
@@ -35,6 +37,17 @@ public class ClaimServiceImpl implements ClaimService{
 		*/
         claimRepository.save(claim);
         return "Success: Claim created";
+    }
+
+    @Override
+    public Long getFinalClaimAmount(Long id) {
+        Optional<Claim> claim = claimRepository.findById(id);
+
+        if(!claim.isPresent()) {
+            return (long) 0;
+        }
+
+        return claim.get().getFinalClaimAmount();
     }
 
 }
