@@ -18,25 +18,25 @@
         Member Claim Request
     </h1>
 
-    <form th:action="@{/getmemberid}" th:object="${listForm}" method="POST">
+    <form th:action="@{/submitForm}" th:object="${listForm}" method="POST">
 
-        <select name="memberId">
+        <select name="memberId" id="memberId">
             <option th:each="memberId : ${list}" th:text="${memberId}" th:value="${memberId}"
             />
         </select>
 
         <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="firstName" required />
+        <input type="text" id="first_name" name="firstName" value="${firstName}" readonly />
 
         <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="lastName" required />
+        <input type="text" id="last_name" name="lastName" value="John"disabled />
 
-        <label for="nominee-count">Nominee Count:</label>
-        <select id="nominee-count" name="nominee-count">
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
+<!--        <label for="nominee-count">Nominee Count:</label>-->
+<!--        <select id="nominee-count" name="nominee-count">-->
+<!--            <option value="1">One</option>-->
+<!--            <option value="2">Two</option>-->
+<!--            <option value="3">Three</option>-->
+<!--        </select>-->
 
         <!--
         <label for="member_id">Member ID:</label>
@@ -66,6 +66,28 @@
         <input type="submit" value="SUBMIT" />
     </form>
 </div>
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        var memberIdSelect = document.getElementById("memberId");
+        if (memberIdSelect) {
+            memberIdSelect.addEventListener("change", function() {
+                var selectedValue = this.value;
+                console.log(selectedValue);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", /*[[@{/submitForm}]]*/, true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        console.log("Value sent successfully");
+                    }
+                };
+                xhr.send("memberId=" + selectedValue);
+            });
+        } else {
+            console.error("Element with id 'memberId' not found");
+        }
+    });
+</script>
 </body>
 
 </html>
