@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import com.cts.cms.ui.dto.MemberUiDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,6 +38,9 @@ public class CommonController {
     private AdminRepository adminRepository;
 
     @Autowired
+    private MemberRepository memberRepository;
+
+    @Autowired
     private MemberService memberService;
 
     @Autowired
@@ -60,6 +64,16 @@ public class CommonController {
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+
+    @GetMapping("/claimsearch")
+    public String searchClaim(HttpSession session) {
+
+        if(session.getAttribute("username") == null || session.getAttribute("username").equals("")) {
+            return "redirect:/login";
+        }
+
+        return "search_claim";
     }
 
     @GetMapping("/forgotPassword")
@@ -219,6 +233,26 @@ public class CommonController {
         claimRepository.save(claim);
 
         return "redirect:/claimrequest";
+    }
+
+    @PostMapping("/registerMember")
+    public String registerMember(@ModelAttribute MemberUiDto memberDto) {
+
+        Member member = new Member();
+        member.setFirstName(memberDto.getFirstName());
+        member.setLastName(memberDto.getLastName());
+        member.setDateOfBirth(memberDto.getDateOfBirth());
+        member.setAddress(memberDto.getAddress());
+        member.setContactNo(Long.valueOf(memberDto.getContactNo()));
+        member.setEmail(memberDto.getEmail());
+        member.setGender(memberDto.getGender());
+        member.setNomineeCount(Integer.parseInt(memberDto.getNomineeCount()));
+        member.setInsuranceType(memberDto.getInsuranceType());
+        member.setMaxClaimAmount((long) Double.parseDouble(memberDto.getMaxClaimAmount()));
+
+        Member insertedMember = memberRepository.save(member);
+
+        return "redirect:/dashboard";
     }
 
     @PostMapping("/fetchFirstName")

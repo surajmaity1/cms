@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Claim</title>
+    <link rel="stylesheet" href="searchclaim.css" />
+</head>
+<body>
+<div class="split-screen">
+    <div class="left">
+        <section class="copy">
+            <h1>Track your claim</h1>
+            <p>We have made it easier to track claim.Now get all your health,<br />life and home insurance status at your fingertips.</p>
+        </section>
+    </div>
+    <div class="right">
+        <form>
+            <h2>Search Claim and Status</h2>
+            <div class="input-container id">
+                <label for="memberid">Member ID</label>
+                <input type="text" placeholder="Enter member ID" required />
+            </div>
+
+            <div class="input-container name">
+                <label for="fname">Firstname</label>
+                <input type="text" placeholder="Enter first name" required />
+            </div>
+
+            <div class="input-container dob">
+                <span class="date">Request from date</span>
+                <input type="date" placeholder="Enter date" required />
+            </div>
+
+            <div class="input-container dob">
+                <span class="date">Request to date</span>
+                <input type="date" placeholder="Enter date" required />
+            </div>
+            <button class="search-btn" type="submit">Search</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
